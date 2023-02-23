@@ -1,4 +1,12 @@
-console.log("Type startGame() to begin.")
+let playerSelection = "";
+
+const rockBTN = document.getElementById("rock");
+const paperBTN = document.getElementById("paper");
+const scissorsBTN = document.getElementById("scissors");
+
+rockBTN.addEventListener("click", () => {playerSelection = "rock"});
+paperBTN.addEventListener("click", () => {playerSelection = "paper"});
+scissorsBTN.addEventListener("click", () => {playerSelection = "scissors"});
 
 function getComputerChoice() {
     min = Math.ceil(1);
@@ -34,31 +42,24 @@ function playRound(playerSelection, computerSelection) {
 
 
 function startGame() {
-    let rounds = 0;
     let playerScore = 0;
     let computerScore = 0;
     let draw = 0;
-    const allowedInputs = ["rock", "paper", "scissors"]
-
-    player = prompt("Type either rock, paper or scissors").toLowerCase()
     
     if (allowedInputs.includes(player)) {
-        while (rounds < 100) {
-            computer = getComputerChoice();
-            result = playRound(player, computer);
-    
-            if (result == "P") {
-                playerScore++;
-                console.log("Player")
-            } else if (result == "C") {
-                computerScore++;
-                console.log("Computer")
-            } else if (result == "D") {
-                draw++;
-                console.log("Draw")
-            }
-    
-            rounds++;
+        
+        computer = getComputerChoice();
+        result = playRound(player, computer);
+
+        if (result == "P") {
+            playerScore++;
+            console.log("Player")
+        } else if (result == "C") {
+            computerScore++;
+            console.log("Computer")
+        } else if (result == "D") {
+            draw++;
+            console.log("Draw")
         }
     
         const scores = `Player Score: ${playerScore} \n Computer Score: ${computerScore} \n Draws: ${draw}`
