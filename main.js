@@ -38,34 +38,41 @@ function startGame() {
     let playerScore = 0;
     let computerScore = 0;
     let draw = 0;
+    const allowedInputs = ["rock", "paper", "scissors"]
 
     player = prompt("Type either rock, paper or scissors").toLowerCase()
     
-    while (rounds < 5) {
-        computer = getComputerChoice();
-        result = playRound(player, computer);
-
-        if (result == "P") {
-            playerScore++;
-            console.log("Player")
-        } else if (result == "C") {
-            computerScore++;
-            console.log("Computer")
-        } else if (result == "D") {
-            draw++;
-            console.log("Draw")
+    if (allowedInputs.includes(player)) {
+        while (rounds < 100) {
+            computer = getComputerChoice();
+            result = playRound(player, computer);
+    
+            if (result == "P") {
+                playerScore++;
+                console.log("Player")
+            } else if (result == "C") {
+                computerScore++;
+                console.log("Computer")
+            } else if (result == "D") {
+                draw++;
+                console.log("Draw")
+            }
+    
+            rounds++;
         }
-
-        rounds++;
-    }
-
-    const scores = `Player Score: ${playerScore} \n Computer Score: ${computerScore} \n Draws: ${draw}`
-
-    if (playerScore > computerScore) {
-        return `Player won. \n the results were:\n ${scores} \n type startGame() in the console to play again.`
-    } else if (playerScore < computerScore) {
-        return `Computer won. \n the results were:\n ${scores} \n type startGame() in the console to play again.`
+    
+        const scores = `Player Score: ${playerScore} \n Computer Score: ${computerScore} \n Draws: ${draw}`
+    
+        if (playerScore > computerScore) {
+            return `Player won. \n the scores were:\n ${scores} \n type startGame() in the console to play again.`
+        } else if (playerScore < computerScore) {
+            return `Computer won. \n the scores were:\n ${scores} \n type startGame() in the console to play again.`
+        } else {
+            return `DRAW!. \n the scores were:\n ${scores} \n type startGame() in the console to play again.`
+        }
     } else {
-        return `DRAW!. \n the results were:\n ${scores} \n type startGame() in the console to play again.`
+        alert("Input is not allowed. Try again.")
+        startGame()
     }
+    
 }
