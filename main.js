@@ -94,7 +94,7 @@ function finalResults() {
     if (playerScore > computerScore) {
         return `Player won. \n the scores were:\n ${scores} \n press Reset to try again.`
     } else if (playerScore < computerScore) {
-        return `Computer won. \n the scores were:\n ${scores} \n pressReset to try again.`
+        return `Computer won. \n the scores were:\n ${scores} \n press Reset to try again.`
     } else {
         return `DRAW!. \n the scores were:\n ${scores} \n press Reset to try again.`
     }
