@@ -14,22 +14,45 @@ rockBTN.addEventListener("click", () => {
     if (rounds <= 4) {
         results.textContent = startGame("rock");
         rounds++;
-        console.log(rounds)
-    } else {
-        results.textContent = finalResults()
+        console.log(rounds);
+    } else if (rounds === 5) {
+        rockBTN.textContent = "Results";
+        paperBTN.textContent = "Results";
+        scissorsBTN.textContent = "Results";
+        results.textContent = finalResults();
     }
-    
 });
 
 paperBTN.addEventListener("click", () => {
-    results.textContent = startGame("paper");
+    if (rounds <= 4) {
+        results.textContent = startGame("rock");
+        rounds++;
+        console.log(rounds);
+    } else if (rounds === 5) {
+        rockBTN.textContent = "Results";
+        paperBTN.textContent = "Results";
+        scissorsBTN.textContent = "Results";
+        results.textContent = finalResults();
+    }
 });
 
 scissorsBTN.addEventListener("click", () => {
-    results.textContent = startGame("scissors");
+    if (rounds <= 4) {
+        results.textContent = startGame("rock");
+        rounds++;
+        console.log(rounds);
+    } else if (rounds === 5) {
+        rockBTN.textContent = "Results";
+        paperBTN.textContent = "Results";
+        scissorsBTN.textContent = "Results";
+        results.textContent = finalResults();
+    }
 });
 
 resetBTN.addEventListener("click", () => {
+    rockBTN.textContent = "Rock";
+    paperBTN.textContent = "Paper";
+    scissorsBTN.textContent = "Scissors";
     results.textContent = "";
     scores = ""
     rounds = 0;
@@ -37,6 +60,8 @@ resetBTN.addEventListener("click", () => {
     computerScore = 0;
     draw = 0;
 })
+
+
 
 function getComputerChoice() {
     min = Math.ceil(1);
