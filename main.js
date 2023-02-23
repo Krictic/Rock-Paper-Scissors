@@ -1,12 +1,24 @@
-let playerSelection = "";
-
 const rockBTN = document.getElementById("rock");
 const paperBTN = document.getElementById("paper");
 const scissorsBTN = document.getElementById("scissors");
+const results = document.getElementById("results--display");
 
-rockBTN.addEventListener("click", () => {playerSelection = "rock"});
-paperBTN.addEventListener("click", () => {playerSelection = "paper"});
-scissorsBTN.addEventListener("click", () => {playerSelection = "scissors"});
+let rounds = 0;
+let playerScore = 0;
+let computerScore = 0;
+let draw = 0;
+
+rockBTN.addEventListener("click", () => {
+    results.textContent = startGame("rock");
+});
+
+paperBTN.addEventListener("click", () => {
+    results.textContent = startGame("paper");
+});
+
+scissorsBTN.addEventListener("click", () => {
+    results.textContent = startGame("scissors");
+});
 
 function getComputerChoice() {
     min = Math.ceil(1);
@@ -41,39 +53,32 @@ function playRound(playerSelection, computerSelection) {
 }   
 
 
-function startGame() {
-    let playerScore = 0;
-    let computerScore = 0;
-    let draw = 0;
-    
-    if (allowedInputs.includes(player)) {
-        
+function startGame(player) {
+    while (rounds <= 5) {
         computer = getComputerChoice();
         result = playRound(player, computer);
-
+    
         if (result == "P") {
             playerScore++;
-            console.log("Player")
         } else if (result == "C") {
             computerScore++;
-            console.log("Computer")
         } else if (result == "D") {
             draw++;
-            console.log("Draw")
         }
     
-        const scores = `Player Score: ${playerScore} \n Computer Score: ${computerScore} \n Draws: ${draw}`
-    
-        if (playerScore > computerScore) {
-            return `Player won. \n the scores were:\n ${scores} \n type startGame() in the console to play again.`
-        } else if (playerScore < computerScore) {
-            return `Computer won. \n the scores were:\n ${scores} \n type startGame() in the console to play again.`
-        } else {
-            return `DRAW!. \n the scores were:\n ${scores} \n type startGame() in the console to play again.`
-        }
-    } else {
-        alert("Input is not allowed. Try again.")
-        startGame()
+        const scores = `Player Score: ${playerScore} \n Computer Score: ${computerScore} \n Draws: ${draw}`;
+        return scores;
     }
-    
 }
+
+/* This will display scores when five rounds are played, to be implemented.
+if (roundsCount === 5) {
+        if (playerScore > computerScore) {
+            return `Player won. \n the scores were:\n ${scores} \n press one of the buttons to try again.`
+        } else if (playerScore < computerScore) {
+            return `Computer won. \n the scores were:\n ${scores} \n press one of the buttons to try again.`
+        } else {
+            return `DRAW!. \n the scores were:\n ${scores} \n press one of the buttons to try again.`
+        }
+    }
+*/
