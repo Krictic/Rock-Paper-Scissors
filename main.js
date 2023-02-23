@@ -10,9 +10,14 @@ let playerScore = 0;
 let computerScore = 0;
 let draw = 0;
 
-rockBTN.addEventListener("click", () => {
+rockBTN.addEventListener("click", () => play("rock"))
+paperBTN.addEventListener("click", () => play("paper"))
+scissorsBTN.addEventListener("click", () => play("scissors"))
+resetBTN.addEventListener("click", () => reset())
+
+function play(playerSelection) {
     if (rounds <= 4) {
-        results.textContent = startGame("rock");
+        results.textContent = startGame(playerSelection);
         rounds++;
         console.log(rounds);
     } else if (rounds === 5) {
@@ -21,47 +26,19 @@ rockBTN.addEventListener("click", () => {
         scissorsBTN.textContent = "Results";
         results.textContent = finalResults();
     }
-});
+};
 
-paperBTN.addEventListener("click", () => {
-    if (rounds <= 4) {
-        results.textContent = startGame("rock");
-        rounds++;
-        console.log(rounds);
-    } else if (rounds === 5) {
-        rockBTN.textContent = "Results";
-        paperBTN.textContent = "Results";
-        scissorsBTN.textContent = "Results";
-        results.textContent = finalResults();
-    }
-});
-
-scissorsBTN.addEventListener("click", () => {
-    if (rounds <= 4) {
-        results.textContent = startGame("rock");
-        rounds++;
-        console.log(rounds);
-    } else if (rounds === 5) {
-        rockBTN.textContent = "Results";
-        paperBTN.textContent = "Results";
-        scissorsBTN.textContent = "Results";
-        results.textContent = finalResults();
-    }
-});
-
-resetBTN.addEventListener("click", () => {
+function reset() {
     rockBTN.textContent = "Rock";
     paperBTN.textContent = "Paper";
     scissorsBTN.textContent = "Scissors";
-    results.textContent = "";
+    results.textContent = "Game is reset.";
     scores = ""
     rounds = 0;
     playerScore = 0;
     computerScore = 0;
     draw = 0;
-})
-
-
+};
 
 function getComputerChoice() {
     min = Math.ceil(1);
