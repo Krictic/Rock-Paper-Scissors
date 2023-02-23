@@ -1,3 +1,3 @@
 # Rock-Paper-Scissors Game
 
-Simple console-based game with user input. Still need to write some CSS for the page.
+This is the same game as the main branch, but on an UI intead of console.
