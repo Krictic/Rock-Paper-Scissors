@@ -1,25 +1,55 @@
 const rockBTN = document.getElementById("rock");
 const paperBTN = document.getElementById("paper");
 const scissorsBTN = document.getElementById("scissors");
+const storeBTN = document.getElementById("storeBTN");
 const resetBTN = document.getElementById("reset");
 const results = document.getElementById("results--display");
+const leaderboard = document.getElementById("leaderboardBTN");
+const leaderboardDisplay1 = document.getElementById("leaderboard1");
+const leaderboardDisplay2 = document.getElementById("leaderboard2");
+const leaderboardDisplay3 = document.getElementById("leaderboard3");
 
-let scores = ""
+let scores = "";
 let rounds = 0;
 let playerScore = 0;
 let computerScore = 0;
 let draw = 0;
+let playerWins = 0;
+let computerWins = 0;
+let drawWins = 0;
 
-rockBTN.addEventListener("click", () => play("rock"))
-paperBTN.addEventListener("click", () => play("paper"))
-scissorsBTN.addEventListener("click", () => play("scissors"))
-resetBTN.addEventListener("click", () => reset())
+rockBTN.addEventListener("click", () => play("rock"));
+paperBTN.addEventListener("click", () => play("paper"));
+scissorsBTN.addEventListener("click", () => play("scissors"));
+resetBTN.addEventListener("click", () => reset());
+leaderboard.addEventListener("click", () => showLeaderboard());
+storeBTN.addEventListener("click", () => localStore())
+
+function checkLocalStorage() {
+    if (localStorage.length === 0) {
+
+        localStorage.setItem('playerWins', JSON.stringify(0));
+        localStorage.setItem('computerWins', JSON.stringify(0));
+        localStorage.setItem('drawWins', JSON.stringify(0));
+    } else {
+        return;
+    }
+}
+
+function showLeaderboard() {
+    let player = JSON.parse(localStorage.getItem("playerWins"));
+    let computer = JSON.parse(localStorage.getItem("computerWins"));
+    let draws = JSON.parse(localStorage.getItem("drawWins"));
+
+    leaderboardDisplay1.textContent = `The player won ${player} times`;
+    leaderboardDisplay2.textContent = `The computer won ${computer} times.`;
+    leaderboardDisplay3.textContent = `And there were ${draws} draws.`;
+}
 
 function play(playerSelection) {
     if (rounds <= 4) {
         results.textContent = startGame(playerSelection);
         rounds++;
-        console.log(rounds);
     } else if (rounds === 5) {
         rockBTN.textContent = "Results";
         paperBTN.textContent = "Results";
@@ -27,6 +57,22 @@ function play(playerSelection) {
         results.textContent = finalResults();
     }
 };
+
+// May God have mercy on my soul.
+function localStore() {
+    let playerReset = JSON.parse(localStorage.getItem("playerWins")) + playerWins;
+    let computerReset = JSON.parse(localStorage.getItem("computerWins")) + computerWins;
+    let drawsReset = JSON.parse(localStorage.getItem("drawWins")) + drawWins;
+
+    localStorage.setItem('playerWins', JSON.stringify(playerReset));
+    localStorage.setItem('computerWins', JSON.stringify(computerReset));
+    localStorage.setItem('drawWins', JSON.stringify(drawsReset));
+
+
+    playerWins = 0;
+    computerWins = 0;
+    drawWins = 0;
+}
 
 function reset() {
     rockBTN.textContent = "Rock";
@@ -74,8 +120,8 @@ function playRound(playerSelection, computerSelection) {
 
 
 function startGame(player) {
-    computer = getComputerChoice();
-    result = playRound(player, computer);
+    let computer = getComputerChoice();
+    let result = playRound(player, computer);
 
     if (result == "P") {
         playerScore++;
@@ -85,17 +131,22 @@ function startGame(player) {
         draw++;
     }
 
-    scores = `Player Score: ${playerScore} \n Computer Score: ${computerScore} \n Draws: ${draw}`;
+    scores = `Player Score: ${playerScore} Computer Score: ${computerScore} Draws: ${draw}`;
     return scores;
 }
 
 function finalResults() {
 
     if (playerScore > computerScore) {
-        return `Player won. \n the scores were:\n ${scores} \n press Reset to try again.`
+        playerWins++;
+        return `Player won. the scores were: ${scores} press Reset to try again.`;
     } else if (playerScore < computerScore) {
-        return `Computer won. \n the scores were:\n ${scores} \n press Reset to try again.`
+        computerWins++;
+        return `Computer won. the scores were: ${scores} press Reset to try again.`;
     } else {
-        return `DRAW!. \n the scores were:\n ${scores} \n press Reset to try again.`
+        drawWins++;
+        return `DRAW!. the scores were: ${scores} press Reset to try again.`;
     }
 }
+
+checkLocalStorage()
